@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Blog</title>
+    <link th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    <script
+            src="https://code.jquery.com/jquery-3.3.1.js"
+            integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+            crossorigin="anonymous"></script>
+    <script th:src="@{/js/script.js}"></script>
+
+
+</head>
+<body>
+	<div class="container">
+		<div class="jumbotron">
+		  <h1 th:text="${noticia.title}"></h1>
+		  <p th:text="${noticia.dateTimeFormatted}"></p>
+		</div>
+		<div th:if="${mensagem !=null}" class="col-md-12">
+            <div class="alert alert-success" role="alert">
+            	<span th:text="${mensagem}"></span>
+            </div>
+        </div>
+		<div>
+			<p th:text="${noticia.conteudo}"></p>
+		</div>
+		<div>
+			<form th:action="@{/blogs/{idBlog}/noticias/{idNoticia}/salvar/comentarios(idBlog=${idBlog}, idNoticia=${noticia.id})}" th:method="post" th:object="${comentario}">
+				<div class="form-group col-md-12">
+				 <textarea class="form-control" name="mensagem" id="mensagem" th:field="*{mensagem}" rows="5" placeholder="Digite um novo comentário"></textarea>
+				</div>
+				<div class="form-group col-md-12">
+				 <input type="submit" class="btn  btn-success" value="Enviar" />
+				</div>
+			</form>
+		</div>
+		<div>
+			<h3>Comentários</h3>
+			<div th:each="comentario: ${noticia.comentarios}">
+				<h4 th:text="${comentario.autor}"></h4>
+				<span th:text="${comentario.mensagem}"></span>
+				<span th:text="${comentario.dateTimeFormatted}"></span>
+				<a class="text-danger" th:href="@{/blogs/{idBlog}/noticias/{idNoticia}/comentarios/{idComentario}/remover(idBlog=${idBlog}, idNoticia=${noticia.id}, idComentario=${comentario.id})}">Remover</a>
+			</div>
+		</div>
+	</div>
+
+
+</body>
+</html>

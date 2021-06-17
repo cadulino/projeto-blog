@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Blog</title>
+    <link th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    <script
+            src="https://code.jquery.com/jquery-3.3.1.js"
+            integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+            crossorigin="anonymous"></script>
+    <script th:src="@{/js/script.js}"></script>
+
+
+</head>
+<body>
+	<div class="container">
+		<div class="jumbotron">
+		  <h1>Bem vindo ao BlogUnipê!</h1>
+		  <p>...</p>
+		  <p><a class="btn btn-primary btn-lg" th:href="@{/blogs/cadastro}" role="button">Criar novo blog</a></p>
+		</div>
+		<div th:if="${mensagem !=null}" class="col-md-12">
+            <div class="alert alert-success" role="alert">
+            	<span th:text="${mensagem}"></span>
+            </div>
+        </div>
+		<div class="row">
+			<div th:each="blog: ${blogs}" class="col-md-4" >
+				<div class="panel panel-primary">
+				  <div class="panel-heading" th:text="${blog.name}"></div>
+				  <div class="panel-body">
+				    <span th:text="${blog.descricao}"></span>
+				    <br/>
+				    <a th:href="@{/blogs/{id}/noticias(id=${blog.id})}" class="btn btn-primary btn-sm">Navegar</a>
+				  </div>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+    
+
+
+</body>
+</html>
